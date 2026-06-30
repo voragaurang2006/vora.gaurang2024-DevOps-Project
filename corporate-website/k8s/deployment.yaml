@@ -1,0 +1,48 @@
+apiVersion:apps/v1
+kind:Deployment
+metadata:
+  name:corporate-website-deployment
+  labels:
+    app:corporate-website
+    tier:frontend
+spec:
+  replicas:3
+  selector:
+    matchLabels:
+      app:corporate-website
+  strategy:
+    type:RollingUpdate
+    rollingUpdate:
+      maxSurge:1
+      maxUnavailable:0
+  template:
+    metadata:
+      labels:
+        app:corporate-website
+    spec:
+      containers:
+      - name:corporate-website
+        image:voragaurang2006/corporate-website:latest
+        imagePullPolicy:Always
+        ports:
+        - containerPort:8080
+          name:http
+        resources:
+          requests:
+            memory:"256Mi"
+            cpu:"200m"
+          limits:
+            memory:"512Mi"
+            cpu:"500m"
+        livenessProbe:
+          httpGet:
+            path:/api/health
+            port:8080
+          initialDelaySeconds:30
+          periodSeconds:15
+        readinessProbe:
+          httpGet:
+            path:/api/health
+            port:8080
+          initialDelaySeconds:20
+          periodSeconds:10
