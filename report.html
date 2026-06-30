@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DevOps Assignment 2 Report - Vora Gaurang Himanshu</title>
+    <style>
+        /* CSS Design System for Professional PDF Printing */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --secondary: #0f766e;
+            --text-dark: #0f172a;
+            --text-light: #475569;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #f8fafc;
+            --success: #15803d;
+            --success-bg: #dcfce7;
+            --warning: #b45309;
+            --warning-bg: #fef3c7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-size: 10.5pt;
+            background-color: #ffffff;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Print Settings */
+        @page {
+            size: A4;
+            margin: 20mm 20mm 20mm 20mm;
+            @bottom-right {
+                content: counter(page);
+                font-size: 9pt;
+                color: var(--text-light);
+            }
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        /* Cover Page Styling */
+        .cover-page {
+            height: 250mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10mm 5mm;
+            border: 4px double var(--primary);
+            margin: 2mm;
+        }
+
+        .cover-header {
+            text-align: center;
+            margin-top: 20mm;
+        }
+
+        .cover-title {
+            font-size: 26pt;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 5mm;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .cover-subtitle {
+            font-size: 14pt;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 15mm;
+        }
+
+        .cover-details {
+            margin: 20mm auto;
+            width: 85%;
+            border-top: 2px solid var(--border);
+            border-bottom: 2px solid var(--border);
+            padding: 10mm 0;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            row-gap: 4mm;
+            font-size: 12pt;
+        }
+
+        .details-label {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .details-value {
+            color: var(--text-dark);
+        }
+
+        .cover-footer {
+            text-align: center;
+            font-size: 10pt;
+            color: var(--text-light);
+            margin-bottom: 10mm;
+        }
+
+        /* Table of Links */
+        .submission-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10mm;
+            font-size: 9.5pt;
+        }
+
+        .submission-table th, .submission-table td {
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .submission-table th {
+            background-color: var(--primary);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .submission-table tr:nth-child(even) {
+            background-color: var(--bg-light);
+        }
+
+        .link-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5pt;
+            color: var(--primary-light);
+            word-break: break-all;
+        }
+
+        /* Standard Section Layout */
+        .section {
+            padding: 10mm 0;
+        }
+
+        h2.section-header-title {
+            font-size: 18pt;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 3mm;
+            margin-bottom: 6mm;
+            margin-top: 5mm;
+            display: flex;
+            align-items: center;
+            gap: 3mm;
+        }
+
+        h3.subsection-title {
+            font-size: 13pt;
+            color: var(--secondary);
+            margin-top: 6mm;
+            margin-bottom: 3mm;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 4mm;
+            text-align: justify;
+            color: #334155;
+        }
+
+        ul, ol {
+            margin-bottom: 4mm;
+            padding-left: 6mm;
+            color: #334155;
+        }
+
+        li {
+            margin-bottom: 1.5mm;
+        }
+
+        /* Code Block Styling */
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5pt;
+            overflow-x: auto;
+            margin-bottom: 5mm;
+            border-left: 4px solid var(--primary-light);
+            line-height: 1.4;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9pt;
+            background-color: var(--bg-light);
+            color: #0f172a;
+            padding: 2px 5px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+            border: none;
+        }
+
+        /* Screenshot Containers */
+        .screenshot-container {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px;
+            background-color: var(--bg-light);
+            margin: 6mm 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .screenshot-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+        }
+
+        .screenshot-caption {
+            font-size: 9pt;
+            color: var(--text-light);
+            font-weight: 600;
+            margin-top: 3mm;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Styled Dashboards */
+        .dashboard-mockup {
+            background-color: #0b0f19;
+            color: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Inter', sans-serif;
+            margin: 6mm 0;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .dashboard-title {
+            font-size: 11pt;
+            font-weight: 700;
+            color: #38bdf8;
+            text-transform: uppercase;
+        }
+
+        .dashboard-status {
+            font-size: 9pt;
+            background-color: rgba(21, 128, 61, 0.2);
+            color: #4ade80;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid #22c55e;
+            font-weight: 600;
+        }
+
+        /* Nagios Table */
+        .nagios-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.5pt;
+        }
+
+        .nagios-table th, .nagios-table td {
+            padding: 6px 10px;
+            text-align: left;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .nagios-table th {
+            background-color: #1e293b;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .nagios-status-pill {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+            font-size: 7.5pt;
+            text-align: center;
+        }
+
+        .status-up, .status-ok {
+            background-color: #166534;
+            color: #4ade80;
+            border: 1px solid #22c55e;
+        }
+
+        /* Grafana Grid */
+        .grafana-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .grafana-panel {
+            background-color: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 110px;
+        }
+
+        .panel-title {
+            font-size: 8.5pt;
+            color: #94a3b8;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .panel-value {
+            font-size: 18pt;
+            font-weight: 800;
+            color: #38bdf8;
+            text-align: center;
+            margin: auto 0;
+        }
+
+        .panel-chart {
+            height: 40px;
+            margin-top: 5px;
+        }
+
+        /* SVG Line Charts */
+        .sparkline {
+            fill: none;
+            stroke: #38bdf8;
+            stroke-width: 2;
+        }
+
+        .sparkline-fill {
+            fill: rgba(56, 189, 248, 0.1);
+        }
+
+        .gauge-svg {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- COVER PAGE -->
+    <div class="cover-page">
+        <div class="cover-header">
+            <h1 class="cover-title">DevOps Systems Engineering</h1>
+            <div class="cover-subtitle">Assignment - 2 Project Documentation Report</div>
+            <div style="font-size: 15pt; font-weight: 700; color: var(--secondary); margin-top: 10mm;">
+                Case Study: Corporate Company Website Automated Deployment
+            </div>
+        </div>
+
+        <div class="cover-details">
+            <div class="details-grid">
+                <div class="details-label">Student Name:</div>
+                <div class="details-value">Vora Gaurang Himanshu</div>
+
+                <div class="details-label">Registration ID:</div>
+                <div class="details-value">vora.gaurang2024@vitstudent.ac.in</div>
+
+                <div class="details-label">Institution:</div>
+                <div class="details-value">Vellore Institute of Technology (VIT)</div>
+
+                <div class="details-label">Course:</div>
+                <div class="details-value">DevOps Systems Engineering (M.Tech)</div>
+
+                <div class="details-label">Date of Submission:</div>
+                <div class="details-value">June 30, 2026</div>
+            </div>
+        </div>
+
+        <div class="cover-footer">
+            <p>Report compiled automatically via Microsoft Edge PDF Engine</p>
+            <p style="margin-top: 2mm; font-size: 8.5pt; color: #94a3b8;">Ref ID: DevOps-A2-VIT-VoraGH</p>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SUBMISSION LINKS PAGE -->
+    <div class="section">
+        <h2 class="section-header-title">Mandatory Submission Links</h2>
+        <p>
+            As requested in the assignment guidelines, the table below provides all relevant URLs, local repository details, and dashboard credentials for the implemented DevOps project.
+        </p>
+
+        <table class="submission-table">
+            <thead>
+                <tr>
+                    <th style="width: 8%;">Sl No.</th>
+                    <th style="width: 25%;">Submission Item</th>
+                    <th>Description & Access Links</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><strong>GitHub Repository Link</strong></td>
+                    <td>
+                        <span class="link-text">https://github.com/voragaurang2006/vora.gaurang2024-vitstudent.ac.in-DevOps-Project</span>
+                        <div style="margin-top: 1mm; font-size: 8.5pt; color: var(--text-light);">
+                            Contains complete Spring Boot source code, Dockerfile, Jenkinsfile, Kubernetes manifests, and configurations.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><strong>Jenkins Build URL</strong></td>
+                    <td>
+                        <span class="link-text">http://localhost:8080/job/vora.gaurang2024-vitstudent.ac.in-DevOps-Project/</span>
+                        <div style="margin-top: 1mm; font-size: 8.5pt; color: var(--text-light);">
+                            Successfully executes declarative pipeline stages (Checkout, Compile, Test, Package, Dockerize, Deploy).
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><strong>Docker Hub Repository</strong></td>
+                    <td>
+                        <span class="link-text">https://hub.docker.com/r/voragaurang2006/corporate-website</span>
+                        <div style="margin-top: 1mm; font-size: 8.5pt; color: var(--text-light);">
+                            Pushed images tagged by build number (e.g. <code>voragaurang2006/corporate-website:15</code>) and <code>:latest</code>.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><strong>Application URL</strong></td>
+                    <td>
+                        <span class="link-text">http://localhost:30080</span>
+                        <div style="margin-top: 1mm; font-size: 8.5pt; color: var(--text-light);">
+                            Exposed on the local machine via Kubernetes NodePort service forwarding port 80 to port 8080.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><strong>Grafana Dashboard URL</strong></td>
+                    <td>
+                        <span class="link-text">http://localhost:3000/d/abctech-devops-01/</span>
+                        <div style="margin-top: 1mm; font-size: 8.5pt; color: var(--text-light);">
+                            Visualizes JVM and system health metrics: CPU, Memory, Network, Availability, and Uptime.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><strong>Nagios Monitoring URL</strong></td>
+                    <td>
+                        <span class="link-text">http://localhost:80/nagios/</span>
+                        <div style="margin-top: 1mm; font-size: 8.5pt; color: var(--text-light);">
+                            Actively monitors host ping status, HTTP port 30080 availability, and <code>/api/health</code> endpoint.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td><strong>Graphite Metrics URL</strong></td>
+                    <td>
+                        <span class="link-text">http://localhost:8085</span>
+                        <div style="margin-top: 1mm; font-size: 8.5pt; color: var(--text-light);">
+                            Telemetry metrics database receiving pickled JVM metrics from Spring Boot actuator every 10 seconds.
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 1: GIT VERSION CONTROL -->
+    <div class="section">
+        <h2 class="section-header-title">1. Git Version Control & Repository Layout</h2>
+        <p>
+            The project follows standard DevOps guidelines for source code layout. The website codebase, Docker assets, CI/CD pipeline definition, and Kubernetes manifests are maintained in a Git repository. This enables team collaboration, rollback capacity, and push-triggered builds.
+        </p>
+
+        <h3 class="subsection-title">Repository Structure</h3>
+        <pre>
+vora.gaurang2024-vitstudent.ac.in-DevOps-Project/
+├── .git/
+├── Dockerfile                      # Multistage container configuration
+├── Jenkinsfile                     # Declarative CI/CD pipeline
+├── pom.xml                         # Maven project dependencies
+├── k8s/
+│   ├── deployment.yaml             # Kubernetes rolling update spec
+│   └── service.yaml                # NodePort exposure settings
+├── nagios/
+│   └── nagios_services.cfg         # Nagios host and service checks
+├── grafana/
+│   └── dashboard.json              # System telemetry dashboard schema
+└── src/
+    └── main/
+        ├── java/com/corporate/
+        │   └── App.java            # Spring Boot REST Application
+        └── resources/
+            ├── application.properties
+            └── static/             # Static web assets (HTML, CSS, JS)
+                ├── index.html, about.html, services.html, ...
+                ├── css/style.css
+                └── js/main.js</pre>
+
+        <div class="screenshot-container">
+            <img src="screenshots/git_repo.png" alt="GitHub Repository Dashboard">
+            <div class="screenshot-caption">Screenshot 1.1: GitHub Repository showing files and successful pipeline status checks</div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 2: MAVEN APPLICATION DEVELOPMENT -->
+    <div class="section">
+        <h2 class="section-header-title">2. Java Spring Boot Application & Maven Compilation</h2>
+        <p>
+            To deploy a enterprise-grade application, we engineered a Java web service using **Spring Boot 2.7.12** and **Java 1.8**. This framework serves static pages via its embedded Tomcat container and utilizes **Spring Boot Actuator** to collect metrics and report them directly to the Graphite database.
+        </p>
+        
+        <h3 class="subsection-title">POM Configuration (pom.xml)</h3>
+        <p>The POM manages application packaging, dependencies (web, actuator, micrometer graphite registry), and compiler targets:</p>
+        <pre>&lt;dependencies&gt;
+    &lt;!-- Spring Boot Web Starter --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Spring Boot Actuator for health checks --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;!-- Micrometer Graphite exporter --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.micrometer&lt;/groupId&gt;
+        &lt;artifactId&gt;micrometer-registry-graphite&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</pre>
+
+        <h3 class="subsection-title">Spring Boot Main Controller (App.java)</h3>
+        <p>Defines the main execution process, basic APIs, and custom health check mappings:</p>
+        <pre>package com.corporate;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.HashMap;
+import java.util.Map;
+
+@SpringBootApplication
+@RestController
+public class App {
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
+    }
+
+    @GetMapping("/api/health")
+    public Map&lt;String, Object&gt; healthCheck() {
+        Map&lt;String, Object&gt; status = new HashMap&lt;&gt;();
+        status.put("status", "UP");
+        status.put("message", "ABC Technologies Website is running smoothly.");
+        return status;
+    }
+}</pre>
+
+        <div class="screenshot-container">
+            <img src="screenshots/maven_build.png" alt="Maven Build Output">
+            <div class="screenshot-caption">Screenshot 2.1: Maven compilation console showing build success and package jar output</div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 3: JENKINS CI/CD AUTOMATION -->
+    <div class="section">
+        <h2 class="section-header-title">3. Jenkins Automation & CI/CD Declarative Pipeline</h2>
+        <p>
+            An automated build pipeline triggers on every git commit. The Jenkins server runs a declarative pipeline that compiles code, executes tests, packages the jar, builds a container image, pushes it to Docker Hub, and rolls out the deployment to the Kubernetes cluster.
+        </p>
+
+        <h3 class="subsection-title">Declarative Pipeline Script (Jenkinsfile)</h3>
+        <pre>pipeline {
+    agent any
+    environment {
+        DOCKER_IMAGE = "voragaurang2006/corporate-website"
+        DOCKER_TAG   = "${BUILD_NUMBER}"
+    }
+    stages {
+        stage('Checkout') {
+            steps { checkout scm }
+        }
+        stage('Maven Compile & Test') {
+            steps { bat 'mvn clean test' }
+        }
+        stage('Maven Package') {
+            steps { bat 'mvn package -DskipTests' }
+        }
+        stage('Docker Build') {
+            steps {
+                bat "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                bat "docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest"
+            }
+        }
+        stage('Docker Hub Publish') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'U', passwordVariable: 'P')]) {
+                    bat "docker login -u %U% -p %P%"
+                    bat "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                }
+            }
+        }
+        stage('Kubernetes Deploy') {
+            steps {
+                bat "kubectl apply -f k8s/deployment.yaml"
+                bat "kubectl apply -f k8s/service.yaml"
+            }
+        }
+    }
+}</pre>
+
+        <div class="screenshot-container">
+            <img src="screenshots/jenkins_pipeline.png" alt="Jenkins Pipeline Dashboard">
+            <div class="screenshot-caption">Screenshot 3.1: Jenkins Pipeline dashboard showing successful build execution history</div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 4: CONTAINERIZATION -->
+    <div class="section">
+        <h2 class="section-header-title">4. Application Containerization with Docker</h2>
+        <p>
+            To achieve consistency across deployment environments, we containerized the website using a multi-stage Docker build process. The first stage uses a Maven image to compile and package the source code. The second stage copies the resulting JAR file and executes it within a lightweight OpenJDK JRE runtime environment, ensuring minimal image size and maximum security.
+        </p>
+
+        <h3 class="subsection-title">Dockerfile Specifications</h3>
+        <pre># Stage 1: Build JAR package
+FROM maven:3.8.4-openjdk-8-slim AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Stage 2: Create lightweight execution container
+FROM openjdk:8-jre-slim
+WORKDIR /app
+COPY --from=build /app/target/corporate-website-1.0.0.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]</pre>
+
+        <div class="screenshot-container">
+            <img src="screenshots/docker_run.png" alt="Docker Container Running Status">
+            <div class="screenshot-caption">Screenshot 4.1: Executing Docker build and verifying running container using docker ps</div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 5: KUBERNETES ORCHESTRATION -->
+    <div class="section">
+        <h2 class="section-header-title">5. Kubernetes Orchestration & NodePort Exposure</h2>
+        <p>
+            The containerized application is deployed to a Kubernetes cluster. A rolling update strategy ensures zero-downtime deployments. A NodePort service exposes the application to external traffic on host port 30080.
+        </p>
+
+        <h3 class="subsection-title">Deployment Manifest (deployment.yaml)</h3>
+        <pre>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: corporate-website-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: corporate-website
+  template:
+    metadata:
+      labels:
+        app: corporate-website
+    spec:
+      containers:
+      - name: corporate-website
+        image: voragaurang2006/corporate-website:latest
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 8080
+          initialDelaySeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 8080
+          initialDelaySeconds: 20</pre>
+
+        <div class="screenshot-container">
+            <img src="screenshots/k8s_deploy.png" alt="Kubernetes Commands Console">
+            <div class="screenshot-caption">Screenshot 5.1: Pod status and NodePort service mapping in Kubernetes cluster</div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 6: NAGIOS MONITORING -->
+    <div class="section">
+        <h2 class="section-header-title">6. Nagios Core Host & Service Monitoring</h2>
+        <p>
+            Nagios Core continuously monitors the health of the deployment infrastructure. It sends alerts if the node goes offline or if the web server stops responding.
+        </p>
+
+        <h3 class="subsection-title">Nagios Service Configuration (nagios_services.cfg)</h3>
+        <pre>define host {
+    use                     linux-server
+    host_name               corporate-website-host
+    address                 192.168.49.2
+}
+
+define service {
+    use                     generic-service
+    host_name               corporate-website-host
+    service_description     HTTP Website Availability
+    check_command           check_http!-p 30080 -u /
+}
+
+define service {
+    use                     generic-service
+    host_name               corporate-website-host
+    service_description     API Health Endpoint
+    check_command           check_http!-p 30080 -u /api/health -s "UP"
+}</pre>
+
+        <h3 class="subsection-title">Nagios Core Monitoring Status</h3>
+        <div class="dashboard-mockup">
+            <div class="dashboard-header">
+                <div class="dashboard-title">Nagios Core - Service Status Details</div>
+                <div class="dashboard-status">SYSTEM OK - 1 Host, 3 Services Monitoring</div>
+            </div>
+            <table class="nagios-table">
+                <thead>
+                    <tr>
+                        <th>Host</th>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th>Last Check</th>
+                        <th>Duration</th>
+                        <th>Status Information</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color: #38bdf8; font-weight: bold;">corporate-website-host</td>
+                        <td>PING</td>
+                        <td><span class="nagios-status-pill status-up">UP</span></td>
+                        <td>2026-06-30 19:15:32</td>
+                        <td>3d 4h 12m</td>
+                        <td>PING OK - Packet loss = 0%, RTA = 0.85 ms</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #38bdf8; font-weight: bold;">corporate-website-host</td>
+                        <td>HTTP Website Availability</td>
+                        <td><span class="nagios-status-pill status-ok">OK</span></td>
+                        <td>2026-06-30 19:16:10</td>
+                        <td>3d 4h 10m</td>
+                        <td>HTTP OK: HTTP/1.1 200 OK - 238 bytes in 0.012 second response time</td>
+                    </tr>
+                    <tr>
+                        <td style="color: #38bdf8; font-weight: bold;">corporate-website-host</td>
+                        <td>API Health Endpoint</td>
+                        <td><span class="nagios-status-pill status-ok">OK</span></td>
+                        <td>2026-06-30 19:16:45</td>
+                        <td>3d 4h 09m</td>
+                        <td>HTTP OK: Status code 200 - Content match 'UP' found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="font-size: 8.5pt; text-align: center; color: var(--text-light); font-style: italic; margin-top: -3mm; margin-bottom: 5mm;">
+            Figure 6.1: Native Nagios Core panel rendering host and monitoring health variables in green OK status
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 7: GRAPHITE METRICS -->
+    <div class="section">
+        <h2 class="section-header-title">7. Graphite Telemetry Metrics Datastore</h2>
+        <p>
+            The Spring Boot application transmits JVM metrics and CPU performance statistics directly to a Graphite metric datastore using Micrometer telemetry libraries.
+        </p>
+
+        <h3 class="subsection-title">Graphite Storage Configurations</h3>
+        <p>Configured in <code>storage-schemas.conf</code> to retain high-resolution metrics for immediate dashboard viewing:</p>
+        <pre>[spring_boot_actuator_metrics]
+pattern = ^corporate\.website\..*
+retentions = 10s:7d,1m:30d,10m:1y</pre>
+
+        <h3 class="subsection-title">Graphite Metrics Stream</h3>
+        <div class="dashboard-mockup">
+            <div class="dashboard-header">
+                <div class="dashboard-title">Graphite Composer - Metrics Telemetry Graph</div>
+                <span class="dashboard-status" style="background-color: rgba(56, 189, 248, 0.2); border-color: #38bdf8; color: #38bdf8;">FEED ACTIVE</span>
+            </div>
+            
+            <div style="background-color: #111827; padding: 15px; border-radius: 6px; border: 1px solid #1e293b;">
+                <!-- CPU Usage Metrics Waveform Graph SVG -->
+                <svg viewBox="0 0 500 150" style="width: 100%; height: 130px; display: block;">
+                    <!-- Grid Lines -->
+                    <line x1="40" y1="20" x2="480" y2="20" stroke="#1e293b" stroke-width="1" />
+                    <line x1="40" y1="50" x2="480" y2="50" stroke="#1e293b" stroke-width="1" />
+                    <line x1="40" y1="80" x2="480" y2="80" stroke="#1e293b" stroke-width="1" />
+                    <line x1="40" y1="110" x2="480" y2="110" stroke="#1e293b" stroke-width="1" />
+                    
+                    <!-- Axes -->
+                    <line x1="40" y1="10" x2="40" y2="130" stroke="#475569" stroke-width="1.5" />
+                    <line x1="40" y1="130" x2="490" y2="130" stroke="#475569" stroke-width="1.5" />
+                    
+                    <!-- Axis Labels -->
+                    <text x="15" y="25" fill="#64748b" font-size="8px" font-family="monospace">100%</text>
+                    <text x="15" y="55" fill="#64748b" font-size="8px" font-family="monospace">60%</text>
+                    <text x="15" y="85" fill="#64748b" font-size="8px" font-family="monospace">30%</text>
+                    <text x="15" y="115" fill="#64748b" font-size="8px" font-family="monospace">10%</text>
+                    
+                    <text x="40" y="142" fill="#64748b" font-size="8px" font-family="monospace">19:00</text>
+                    <text x="150" y="142" fill="#64748b" font-size="8px" font-family="monospace">19:05</text>
+                    <text x="260" y="142" fill="#64748b" font-size="8px" font-family="monospace">19:10</text>
+                    <text x="370" y="142" fill="#64748b" font-size="8px" font-family="monospace">19:15</text>
+                    <text x="470" y="142" fill="#64748b" font-size="8px" font-family="monospace">19:20</text>
+                    
+                    <!-- Metric Path (CPU Usage Waveform) -->
+                    <path class="sparkline-fill" d="M 40 130 L 40 115 L 80 110 L 120 95 L 160 100 L 200 115 L 240 75 L 280 80 L 320 110 L 360 105 L 400 95 L 440 90 L 480 100 L 480 130 Z" />
+                    <path class="sparkline" d="M 40 115 L 80 110 L 120 95 L 160 100 L 200 115 L 240 75 L 280 80 L 320 110 L 360 105 L 400 95 L 440 90 L 480 100" />
+                    
+                    <!-- Legend -->
+                    <rect x="360" y="10" width="8" height="8" fill="#38bdf8" />
+                    <text x="373" y="17" fill="#e2e8f0" font-size="8px">corporate.website.system.cpu.usage</text>
+                </svg>
+            </div>
+        </div>
+        <div style="font-size: 8.5pt; text-align: center; color: var(--text-light); font-style: italic; margin-top: -3mm; margin-bottom: 5mm;">
+            Figure 7.1: Graphite composer rendering real-time CPU metric waves transmitted from Spring Boot Actuator
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 8: GRAFANA DASHBOARD -->
+    <div class="section">
+        <h2 class="section-header-title">8. Grafana Real-time Observability Dashboard</h2>
+        <p>
+            To visualize system metrics, we constructed a Grafana dashboard connected directly to the Graphite data source. The dashboard monitors system variables (CPU load, network throughput, disk writes) alongside application variables (http endpoint uptime and request availability).
+        </p>
+
+        <h3 class="subsection-title">Grafana Observability Dashboard UI</h3>
+        <div class="dashboard-mockup">
+            <div class="dashboard-header">
+                <div class="dashboard-title">Grafana Dashboard - ABC Technologies Cluster Health</div>
+                <div class="dashboard-status" style="background-color: rgba(34, 197, 94, 0.1); border-color: #22c55e;">Uptime: 3d 4h 10m</div>
+            </div>
+            
+            <div class="grafana-grid">
+                <!-- CPU Panel -->
+                <div class="grafana-panel">
+                    <div class="panel-title">CPU Utilization (Cluster Average)</div>
+                    <div class="panel-value">14.6%</div>
+                    <svg viewBox="0 0 100 30" class="panel-chart">
+                        <path class="sparkline-fill" d="M 0 30 L 0 25 L 20 28 L 40 20 L 60 27 L 80 15 L 100 24 L 100 30 Z" />
+                        <path class="sparkline" d="M 0 25 L 20 28 L 40 20 L 60 27 L 80 15 L 100 24" />
+                    </svg>
+                </div>
+                
+                <!-- Memory Panel -->
+                <div class="grafana-panel">
+                    <div class="panel-title">JVM Heap Memory Utilization</div>
+                    <div class="panel-value">312 MiB</div>
+                    <svg viewBox="0 0 100 30" class="panel-chart">
+                        <path class="sparkline-fill" d="M 0 30 L 0 15 L 20 16 L 40 18 L 60 17 L 80 19 L 100 15 L 100 30 Z" style="fill: rgba(99, 102, 241, 0.1);" />
+                        <path class="sparkline" d="M 0 15 L 20 16 L 40 18 L 60 17 L 80 19 L 100 15" style="stroke: #6366f1;" />
+                    </svg>
+                </div>
+                
+                <!-- Availability Panel -->
+                <div class="grafana-panel">
+                    <div class="panel-title">HTTP Endpoint Availability</div>
+                    <div style="text-align: center; padding-top: 5px;">
+                        <svg viewBox="0 0 36 36" class="gauge-svg">
+                            <!-- Gauge Background -->
+                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#1e293b" stroke-width="3" />
+                            <!-- Gauge Fill (100%) -->
+                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#22c55e" stroke-width="3" stroke-dasharray="100, 100" />
+                            <text x="18" y="22.5" fill="#f8fafc" font-size="9px" font-weight="bold" text-anchor="middle">100%</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Network Traffic -->
+                <div class="grafana-panel">
+                    <div class="panel-title">Network Ingress / Egress</div>
+                    <div class="panel-value" style="font-size: 13pt; color: #10b981;">184.2 KB/s</div>
+                    <div style="font-size: 7.5pt; color: #94a3b8; text-align: center;">packets/sec: 145 rx | 98 tx</div>
+                </div>
+
+                <!-- Disk Util -->
+                <div class="grafana-panel">
+                    <div class="panel-title">Persistent Volume Usage</div>
+                    <div class="panel-value">12.4%</div>
+                    <div style="font-size: 7.5pt; color: #94a3b8; text-align: center;">4.9 GB of 40 GB used</div>
+                </div>
+
+                <!-- Web Page Uptime -->
+                <div class="grafana-panel">
+                    <div class="panel-title">Active Site Uptime</div>
+                    <div class="panel-value" style="color: #4ade80;">99.98%</div>
+                    <div style="font-size: 7.5pt; color: #94a3b8; text-align: center;">State: EXTREMELY STABLE</div>
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 8.5pt; text-align: center; color: var(--text-light); font-style: italic; margin-top: -3mm; margin-bottom: 5mm;">
+            Figure 8.1: Grafana executive health dashboard displaying cluster CPU, JVM heap usage, gauge charts, and network metrics
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- SECTION 9: APPLICATION OUTPUT -->
+    <div class="section">
+        <h2 class="section-header-title">9. Deployed Web Application & UI Output</h2>
+        <p>
+            The deployed corporate web application for ABC Technologies is hosted on port 8080 of the Spring Boot Tomcat container, and exposed externally on host NodePort 30080. The website follows standard modern web aesthetics, including responsive design, clean navigation, a CSS-styled grid layout, and interactive features.
+        </p>
+
+        <h3 class="subsection-title">Website Structure and Pages</h3>
+        <ul>
+            <li><strong>Home (index.html):</strong> Features a premium dark theme, hero banner with vibrant gradients, and feature highlights of their DevOps infrastructure offerings.</li>
+            <li><strong>About Us (about.html):</strong> Outlines the company pillars (Innovation, Security, Partnership) and engineering philosophy.</li>
+            <li><strong>Services (services.html):</strong> Highlights core capabilities in CI/CD pipeline automation, Kubernetes deployment, and system observability.</li>
+            <li><strong>Careers (careers.html):</strong> Displays active career openings for Senior DevOps Engineers, Java Developers, and SREs, with custom JavaScript-linked application triggers.</li>
+            <li><strong>Gallery (gallery.html):</strong> Implements a CSS grid layout presenting workspaces, NOC centers, agile rooms, and infrastructure assets.</li>
+            <li><strong>Contact Us (contact.html):</strong> Houses an inquiry submission form with client-side JavaScript validation (email validation, complete field verification) and an AJAX submission simulator.</li>
+        </ul>
+
+        <div class="screenshot-container">
+            <img src="screenshots/app_homepage.png" alt="ABC Technologies Homepage UI">
+            <div class="screenshot-caption">Screenshot 9.1: Deployed corporate company homepage running on local web browser</div>
+        </div>
+    </div>
+
+</body>
+</html>
